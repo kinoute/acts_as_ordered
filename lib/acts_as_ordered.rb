@@ -37,7 +37,7 @@ module ActiveRecord
         end
 
         def interpolate_sql(sql)
-          instance_eval("%@#{sql.gsub('@', '\@')}@", __FILE__, __LINE__)
+          instance_eval("%@#{sql.to_s.gsub('@', '\@')}@", __FILE__, __LINE__)
         end
 
         def adjacent_id(number)
