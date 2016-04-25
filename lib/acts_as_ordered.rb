@@ -12,7 +12,7 @@ module ActiveRecord
         def acts_as_ordered(options = {})
           options.assert_valid_keys :order, :wrap, :if, :scope, :ignore_sti, :joins
 
-          options[:order] = options[:order] ? "#{options[:order]}, #{table_name}.#{primary_key}" : primary_key
+          options[:order] = options[:order] ? "#{options[:order]}" : primary_key
           options[:if]    = Array(options[:if]).map { |c| c.is_a?(Symbol) ? c.to_proc : c }
           options[:scope] = "#{options[:scope]}_id".to_sym if options[:scope].is_a?(Symbol) && options[:scope].to_s !~ /_id$/
 
