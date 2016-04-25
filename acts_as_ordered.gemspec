@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
    spec.name = 'acts_as_ordered'
-   spec.version        = '1.1.4'
+   spec.version        = '1.1.5'
    spec.authors     = ['jonathan viney', 'yann defretin'] 
    
 end
