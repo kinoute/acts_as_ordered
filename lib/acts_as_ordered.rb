@@ -49,7 +49,8 @@ module ActiveRecord
           if !options[:ignore_sti] && !self.class.descends_from_active_record?
             conditions << self.class.send(:type_condition)
           end
-          self.class.find(:first, :conditions => ordered_scope_conditions(:next), :order => ordered_scope_order(:next)) || self
+          self.class.where(ordered_scope_conditions(:next)).order(ordered_scope_order(:next)).first || self
+          #self.class.find(:first, :conditions => ordered_scope_conditions(:next), :order => ordered_scope_order(:next)) || self
         end
 
         def previous
@@ -57,15 +58,18 @@ module ActiveRecord
           if !options[:ignore_sti] && !self.class.descends_from_active_record?
             conditions << self.class.send(:type_condition)
           end
-          self.class.find(:first, :conditions => ordered_scope_conditions(:prev), :order => ordered_scope_order(:prev)) || self
+          self.class.where(ordered_scope_conditions(:prev)).order(ordered_scope_order(:prev)).first || self          
+          #self.class.find(:first, :conditions => ordered_scope_conditions(:prev), :order => ordered_scope_order(:prev)) || self
         end
         
         def first
-          self.class.first(:conditions => _acts_as_ordered_options[:scope].respond_to?(:call) ? _acts_as_ordered_options[:scope].call(self) : _acts_as_ordered_options[:scope], :order => ordered_scope_order(:next) )
+          self.class.where(_acts_as_ordered_options[:scope].respond_to?(:call) ? _acts_as_ordered_options[:scope].call(self) : _acts_as_ordered_options[:scope]).order(ordered_scope_order(:next)).first
+          #self.class.first(:conditions => _acts_as_ordered_options[:scope].respond_to?(:call) ? _acts_as_ordered_options[:scope].call(self) : _acts_as_ordered_options[:scope], :order => ordered_scope_order(:next) )
         end
         
         def last
-          self.class.last(:conditions => _acts_as_ordered_options[:scope].respond_to?(:call) ? _acts_as_ordered_options[:scope].call(self) : _acts_as_ordered_options[:scope], :order => ordered_scope_order(:next)  )
+          self.class.where(_acts_as_ordered_options[:scope].respond_to?(:call) ? _acts_as_ordered_options[:scope].call(self) : _acts_as_ordered_options[:scope]).order(ordered_scope_order(:next)).last
+          #self.class.last(:conditions => _acts_as_ordered_options[:scope].respond_to?(:call) ? _acts_as_ordered_options[:scope].call(self) : _acts_as_ordered_options[:scope], :order => ordered_scope_order(:next)  )
         end
       end
     end
